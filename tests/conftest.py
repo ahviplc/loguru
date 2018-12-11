@@ -15,7 +15,7 @@ default_levels = loguru._logger.Logger._levels.copy()
 @pytest.fixture(autouse=True)
 def reset_logger():
     def reset():
-        loguru.logger.stop()
+        loguru.logger.remove()
         loguru.logger.__init__({}, None, False, False, False, False, 0)
         loguru._logger.Logger._levels = default_levels.copy()
         loguru._logger.Logger._min_level = float("inf")
@@ -52,7 +52,7 @@ def pyexec(tmpdir):
         "import sys;"
         'sys.path.append(r"' + loguru_path + '");'
         "from loguru import logger;"
-        "logger.stop();\n"
+        "logger.remove();\n"
     )
 
     def pyexec(code, import_loguru=False, *, pyfile=None):
